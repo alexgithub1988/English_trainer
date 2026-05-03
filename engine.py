@@ -2,13 +2,8 @@ from dataclasses import dataclass, field
 
 @dataclass
 class Sentence:
-    russian: str
+    russian : str
     english: str
-    words: list = field(default_factory=list)
-    fake_pronouns: list = field(default_factory=list)
-    fake_verbs: list = field(default_factory=list)
-
-
 
 
     def check(self, answer: str) -> bool:
@@ -22,14 +17,38 @@ class Sentence:
         else:
             return False
 
-    def get_words(self) -> list:
-        return self.words
+    def get_english_sentence(self) -> str:
+        """
+
+        :return: english sentence
+        """
+        return self.english
+
+    def get_russian_sentence(self) -> str:
+        """
+        :return: russian sentence
+
+        """
+        return self.russian
+
+
+
 
 @dataclass
 class Lesson:
+    lesson_number : int
     sentence: Sentence = field(default_factory=Sentence)
-    fake_pronouns: list = field(default_factory=list)
-    fake_verbs: list = field(default_factory=list)
+    fake_pronouns: dict = field(default_factory=dict) | None
+    fake_verbs: dict = field(default_factory=dict)   | None
+
+    def split_sentence(self, sentence: str) -> list:
+        """
+        :param sentence:
+
+        :return: возвращаем список обрезанных слов
+        """
+        return sentence.split().strip()
+
 
 
 
